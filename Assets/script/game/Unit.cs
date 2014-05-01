@@ -11,6 +11,9 @@ public class Unit : MonoBehaviour
 {
 	public Property m_Property;
 
+	public UILabel m_life;
+	public UILabel m_attack;
+
 	// Use this for initialization
 	void Start () 
 	{
@@ -21,5 +24,10 @@ public class Unit : MonoBehaviour
 	void Update () 
 	{
 		
+	}
+
+	public void UpdateUnit()
+	{
+
 	}
 }
