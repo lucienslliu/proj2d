@@ -70,4 +70,9 @@ public class Card : MonoBehaviour
 	{
 		m_bInHand = inHand;
 	}
+
+	public void OnClick()
+	{
+
+	}
 }
