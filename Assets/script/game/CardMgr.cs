@@ -20,4 +20,9 @@ public class CardMgr : MonoBehaviour
 	{
 	
 	}
+
+	public cardInfo GetCardInfo(int nId)
+	{
+		return cardTemplate[nId];
+	}
 }

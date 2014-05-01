@@ -3,10 +3,10 @@ using System.Collections;
 
 public struct cardInfo
 {
-	int cardID;
-	int life;
-	int attack;
-	int cost;
+	public int cardID;
+	public int life;
+	public int attack;
+	public int cost;
 
 	public cardInfo(int id, int l, int atk, int c)
 	{
@@ -28,12 +28,10 @@ public struct cardInfo
 public class Card : MonoBehaviour 
 {
 	private cardInfo m_cardInfo;
-	private int m_nCost = 0;
 
-	public Card(int index)
-	{
-		m_cardInfo = new cardInfo(CardMgr.Instance.cardTemplate[index]);
-	}
+	public UILabel m_life;
+	public UILabel m_cost;
+	public UILabel m_attack;
 
 	// Use this for initialization
 	void Start () 
@@ -47,5 +45,22 @@ public class Card : MonoBehaviour
 	
 	}
 
-
+	public int GetCardID()
+	{
+		return m_cardInfo.cardID;
+	}
+	
+	public void Init(int nId)
+	{
+		cardInfo info = CardMgr.Instance.GetCardInfo(nId);
+		m_cardInfo = new cardInfo(info);//new cardInfo(1, 5, 10, 13);
+		UpdateCard();
+	}
+	
+	private void UpdateCard()
+	{
+		m_life.text = "life: " + m_cardInfo.life.ToString();
+		m_cost.text = "cost: " + m_cardInfo.cost.ToString();
+		m_attack.text = "atk: " + m_cardInfo.attack.ToString();
+	}
 }

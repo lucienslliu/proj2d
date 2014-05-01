@@ -11,7 +11,9 @@ public class Player : MonoBehaviour
 	private float m_GetCardInterval = 2.0f;
 	private float m_GetCardTime = 0;
 	
-	private PropertyCard m_propertyCard;
+	public Transform m_propertyCard;
+
+	private int m_Life = 30;
 
 	public UISlider progressBar;
 
@@ -19,7 +21,6 @@ public class Player : MonoBehaviour
 	// Use this for initialization
 	void Start () 
 	{
-		m_propertyCard = new PropertyCard();
 	}
 	
 	// Update is called once per frame
@@ -31,7 +32,7 @@ public class Player : MonoBehaviour
 	public void GameUpdate()
 	{
 		UpdateEnerge();
-		UpdateCard();
+		//UpdateCard();
 	}
 
 	private void UpdateEnerge()
@@ -71,8 +72,16 @@ public class Player : MonoBehaviour
 
 	public void GetOneCard()
 	{
-		m_propertyCard.GetOneCard();
+		PropertyCard property_card = m_propertyCard.GetComponent<PropertyCard>();
+		property_card.GetOneCard();
 	}
 	
-
+	public void SetLife(int life)
+	{
+		m_Life = life;
+		if (life <= 0)
+		{
+			GameManager.Instance.GameOver();
+		}
+	}
 }

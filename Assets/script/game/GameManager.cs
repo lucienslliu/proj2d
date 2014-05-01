@@ -7,14 +7,21 @@ public class GameManager : MonoBehaviour
 	public Player player1;
 	public Player player2;
 
+	public static GameManager Instance;
+
 	// Use this for initialization
 	void Start ()
 	{
-	
+		Instance = this;
 	}
 	
 	// Update is called once per frame
 	void Update () 
 	{
+	}
+
+	public void GameOver()
+	{
+
 	}
 }
