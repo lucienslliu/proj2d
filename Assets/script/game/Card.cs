@@ -30,8 +30,10 @@ public class Card : MonoBehaviour
 	private cardInfo m_cardInfo;
 
 	public UILabel m_life;
-	public UILabel m_cost;
 	public UILabel m_attack;
+	public UILabel m_cost;
+
+	private bool m_bInHand = false;
 
 	// Use this for initialization
 	void Start () 
@@ -62,5 +64,10 @@ public class Card : MonoBehaviour
 		m_life.text = "life: " + m_cardInfo.life.ToString();
 		m_cost.text = "cost: " + m_cardInfo.cost.ToString();
 		m_attack.text = "atk: " + m_cardInfo.attack.ToString();
+	}
+
+	public void SetInHand(bool inHand)
+	{
+		m_bInHand = inHand;
 	}
 }

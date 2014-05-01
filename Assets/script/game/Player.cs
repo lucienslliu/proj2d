@@ -32,7 +32,7 @@ public class Player : MonoBehaviour
 	public void GameUpdate()
 	{
 		UpdateEnerge();
-		//UpdateCard();
+		UpdateCard();
 	}
 
 	private void UpdateEnerge()

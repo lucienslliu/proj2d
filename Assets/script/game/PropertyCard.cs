@@ -3,7 +3,7 @@ using System.Collections;
 
 public class PropertyCard : MonoBehaviour 
 {	
-	private const int m_MaxCardNum = 8;
+	private const int m_MaxCardNum = 30;
 	private const int m_MaxGetCardNum = 8;
 
 	private ArrayList m_BagCardList = new ArrayList(m_MaxCardNum);
@@ -28,7 +28,7 @@ public class PropertyCard : MonoBehaviour
 			Card card = go.GetComponent<Card>();
 			card.Init(nId);
 
-			m_BagCardList.Add(go);
+			m_BagCardList.Add(go.transform);
 		}
 	}
 	
@@ -45,20 +45,26 @@ public class PropertyCard : MonoBehaviour
 			int nIndex = Random.Range(0, m_BagCardList.Count - 1);
 			Transform[] cardList = (Transform[])m_BagCardList.ToArray(typeof(Transform));
 			Card cardOld = cardList[nIndex].GetComponent<Card>();
+			cardOld.SetInHand(true);
 
-			Transform trans = (Transform)Instantiate(m_CardPrefab, Vector3.zero, Quaternion.identity);
-			Card card = trans.GetComponent<Card>();
-			card.Init(cardOld.GetCardID());
+			//Transform trans = (Transform)Instantiate(m_CardPrefab, Vector3.zero, Quaternion.identity);
+			//Card card = trans.GetComponent<Card>();
+			//card.Init(cardOld.GetCardID());
 
 			m_HandCardList.Add(cardList[nIndex]);
 			m_BagCardList.RemoveAt(nIndex);
-			UpdateCard();
+
+			UpdateCardPos();
 		}
 	}
 
-	private void UpdateCard()
+	private void UpdateCardPos()
 	{
-
+		Transform[] cardList = (Transform[])m_HandCardList.ToArray(typeof(Transform));
+		for (int i = 0; i < m_HandCardList.Count; i++)
+		{
+			cardList[i].localPosition = new Vector3(50 + i * 80, cardList[i].localPosition.y);
+		}
 	}
 }
 
