@@ -5,10 +5,10 @@ public class Player : MonoBehaviour
 {
 	private int m_Energe = 0;
 	private int m_EnergeMax = 100;
-	private float m_EnergeInterval = 0.2f;
+	private float m_EnergeInterval = 1f;
 	private float m_EnergeTime = 0;
 
-	private float m_GetCardInterval = 2.0f;
+	private float m_GetCardInterval = 4.0f;
 	private float m_GetCardTime = 0;
 	
 	public Transform m_propertyCard;
@@ -51,6 +51,11 @@ public class Player : MonoBehaviour
 		}
 	}
 
+	public int GetEnerge()
+	{
+		return m_Energe;
+	}
+
 	public void SetEnerge(int energe)
 	{
 		m_Energe = energe;
@@ -73,7 +78,7 @@ public class Player : MonoBehaviour
 	public void GetOneCard()
 	{
 		PropertyCard property_card = m_propertyCard.GetComponent<PropertyCard>();
-		property_card.GetOneCard();
+		property_card.GetOneCard(this);
 	}
 	
 	public void SetLife(int life)

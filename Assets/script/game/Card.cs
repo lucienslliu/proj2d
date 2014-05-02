@@ -34,6 +34,7 @@ public class Card : MonoBehaviour
 	public UILabel m_cost;
 
 	private bool m_bInHand = false;
+	public Player m_owner;
 
 	// Use this for initialization
 	void Start () 
@@ -71,8 +72,38 @@ public class Card : MonoBehaviour
 		m_bInHand = inHand;
 	}
 
-	public void OnClick()
+	public void OnCardClick()
 	{
+		PropertyCard p = this.transform.parent.gameObject.GetComponent<PropertyCard>();
+		Player player = p.GetPlayer();
+		if (false == Cost(player))
+		{
+			return;
+		}
 
+		p.UseCard(this);
+	}
+
+	private bool Cost(Player p)
+	{
+		int energe = p.GetEnerge();
+		if (false == CheckCost(energe))
+		{
+			return false;
+		}
+
+		p.SetEnerge(energe - m_cardInfo.cost);
+
+		return true;
+	}
+
+	private bool CheckCost(int energe)
+	{
+		if (energe < m_cardInfo.cost)
+		{
+			return false;
+		}
+
+		return true;
 	}
 }

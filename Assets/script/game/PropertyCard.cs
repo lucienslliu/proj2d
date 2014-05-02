@@ -10,6 +10,7 @@ public class PropertyCard : MonoBehaviour
 	private ArrayList m_HandCardList = new ArrayList(m_MaxGetCardNum);
 
 	public Transform m_CardPrefab;
+	public Player m_Owner;
 
 	// Use this for initialization
 	void Start ()
@@ -38,7 +39,7 @@ public class PropertyCard : MonoBehaviour
 	}
 
 
-	public void GetOneCard()
+	public void GetOneCard(Player player)
 	{
 		if (m_HandCardList.Count < m_MaxGetCardNum)
 		{
@@ -65,6 +66,17 @@ public class PropertyCard : MonoBehaviour
 		{
 			cardList[i].localPosition = new Vector3(50 + i * 80, cardList[i].localPosition.y);
 		}
+	}
+
+	public Player GetPlayer()
+	{
+		return m_Owner;
+	}
+
+	public void UseCard(Card card)
+	{
+		m_HandCardList.Remove(card.transform);
+		UpdateCardPos();
 	}
 }
 
