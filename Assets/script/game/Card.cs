@@ -27,7 +27,7 @@ public struct cardInfo
 
 public class Card : MonoBehaviour 
 {
-	private cardInfo m_cardInfo;
+	public cardInfo m_cardInfo;
 
 	public UILabel m_life;
 	public UILabel m_attack;
@@ -76,10 +76,20 @@ public class Card : MonoBehaviour
 	{
 		PropertyCard p = this.transform.parent.gameObject.GetComponent<PropertyCard>();
 		Player player = p.GetPlayer();
+
+		// 找到位置
+		if (GameManager.Instance.m_BattleField.HasEmptySlot() == false)
+		{
+			return;
+		}
+
+		// 消耗
 		if (false == Cost(player))
 		{
 			return;
 		}
+
+		GameManager.Instance.m_BattleField.CreateUnit(this);
 
 		p.UseCard(this);
 	}

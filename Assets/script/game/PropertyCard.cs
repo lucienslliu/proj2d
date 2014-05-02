@@ -3,7 +3,7 @@ using System.Collections;
 
 public class PropertyCard : MonoBehaviour 
 {	
-	private const int m_MaxCardNum = 10;
+	private const int m_MaxCardNum = 20;
 	private const int m_MaxGetCardNum = 8;
 
 	private ArrayList m_BagCardList = new ArrayList(m_MaxCardNum);
@@ -28,6 +28,7 @@ public class PropertyCard : MonoBehaviour
 
 			Card card = go.GetComponent<Card>();
 			card.Init(nId);
+			card.m_owner = GetPlayer();
 
 			m_BagCardList.Add(go.transform);
 		}

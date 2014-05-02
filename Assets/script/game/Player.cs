@@ -12,6 +12,7 @@ public class Player : MonoBehaviour
 	private float m_GetCardTime = 0;
 	
 	public Transform m_propertyCard;
+	public int m_Index;
 
 	private int m_Life = 30;
 
