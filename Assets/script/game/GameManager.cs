@@ -7,6 +7,8 @@ public class GameManager : MonoBehaviour
 	public Player player1;
 	public Player player2;
 
+	public BattleField m_BattleField;
+
 	public static GameManager Instance;
 
 	// Use this for initialization

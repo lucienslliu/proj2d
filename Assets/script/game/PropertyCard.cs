@@ -3,7 +3,7 @@ using System.Collections;
 
 public class PropertyCard : MonoBehaviour 
 {	
-	private const int m_MaxCardNum = 30;
+	private const int m_MaxCardNum = 10;
 	private const int m_MaxGetCardNum = 8;
 
 	private ArrayList m_BagCardList = new ArrayList(m_MaxCardNum);
@@ -41,6 +41,11 @@ public class PropertyCard : MonoBehaviour
 
 	public void GetOneCard(Player player)
 	{
+		if (m_BagCardList.Count <= 0)
+		{
+			return;
+		}
+
 		if (m_HandCardList.Count < m_MaxGetCardNum)
 		{
 			int nIndex = Random.Range(0, m_BagCardList.Count - 1);
@@ -55,16 +60,17 @@ public class PropertyCard : MonoBehaviour
 			m_HandCardList.Add(cardList[nIndex]);
 			m_BagCardList.RemoveAt(nIndex);
 
-			UpdateCardPos();
+			UpdateCardPos(true);
 		}
 	}
 
-	private void UpdateCardPos()
+	private void UpdateCardPos(bool active)
 	{
 		Transform[] cardList = (Transform[])m_HandCardList.ToArray(typeof(Transform));
 		for (int i = 0; i < m_HandCardList.Count; i++)
 		{
 			cardList[i].localPosition = new Vector3(50 + i * 80, cardList[i].localPosition.y);
+			cardList[i].gameObject.SetActive(active);
 		}
 	}
 
@@ -75,8 +81,9 @@ public class PropertyCard : MonoBehaviour
 
 	public void UseCard(Card card)
 	{
+		UpdateCardPos(false);
 		m_HandCardList.Remove(card.transform);
-		UpdateCardPos();
+		UpdateCardPos(true);
 	}
 }
 

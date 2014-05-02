@@ -164,6 +164,7 @@
      <Compile Include="Assets\NGUI\Scripts\UI\UITexture.cs" />
      <Compile Include="Assets\NGUI\Scripts\UI\UITooltip.cs" />
      <Compile Include="Assets\NGUI\Scripts\UI\UIViewport.cs" />
+     <Compile Include="Assets\script\game\BattleField.cs" />
      <Compile Include="Assets\script\game\Card.cs" />
      <Compile Include="Assets\script\game\CardMgr.cs" />
      <Compile Include="Assets\script\game\GameManager.cs" />
