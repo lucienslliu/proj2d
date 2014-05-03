@@ -15,6 +15,8 @@ public class BattleField : MonoBehaviour
 	public Transform m_UnitPrefab;
 	public static int InvalidSlotIndex = -1;
 
+	private int m_UnitSeq = 0;
+
 	public enum SearchSeq
 	{
 		SearchSeq_Clockwise = 0,
@@ -32,8 +34,24 @@ public class BattleField : MonoBehaviour
 	}
 	
 	// Update is called once per frame
-	void Update () 
+	void Update ()
 	{
+		for (int i = 0; i < m_MaxUnitNum; i++)
+		{
+			if (m_Units[i].m_Used == true)
+			{
+				Unit unit = m_Units[i].m_Unit.gameObject.GetComponent<Unit>();
+				if (true == unit.IsDead())
+				{
+					m_Units[i].m_Used = false;
+					m_Units[i].m_Unit.gameObject.SetActive(false);
+					m_Units[i].m_Unit = null;
+				}
+			}
+		}
+
+		UpdateUnitDisp(true);
+
 	}
 
 	public void CreateUnit(Card card)
@@ -48,12 +66,13 @@ public class BattleField : MonoBehaviour
 		obj.transform.localScale = a.transform.localScale;
 		Unit unit = obj.GetComponent<Unit>();
 		unit.m_Owner = card.m_owner;
-		unit.SetProperty(card.m_cardInfo);
+		unit.SetProperty(card.m_cardInfo, m_UnitSeq);
 
 		m_Units[index].m_Used = true;
 		m_Units[index].m_Unit = obj.transform;
-
-		UpdateUnit(true);
+		
+		m_UnitSeq++;
+		UpdateUnitDisp(true);
 	}
 
 	public bool HasEmptySlot()
@@ -87,7 +106,7 @@ public class BattleField : MonoBehaviour
 		return InvalidSlotIndex;
 	}
 
-	private void UpdateUnit(bool active)
+	private void UpdateUnitDisp(bool active)
 	{
 		for (int i = 0; i < m_MaxUnitNum; i++)
 		{
@@ -97,5 +116,22 @@ public class BattleField : MonoBehaviour
 				m_Units[i].m_Unit.gameObject.SetActive(active);
 			}
 		}
+	}
+
+	public Unit FindEnemyUnit(Player player)
+	{
+		for (int i = 0; i < m_MaxUnitNum; i++)
+		{
+			if (m_Units[i].m_Used == true)
+			{
+				Unit unit = m_Units[i].m_Unit.gameObject.GetComponent<Unit>();
+				if (unit.m_Owner != player)
+				{
+					return unit;
+				}
+			}
+		}
+
+		return null;
 	}
 }

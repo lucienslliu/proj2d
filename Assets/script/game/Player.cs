@@ -14,14 +14,15 @@ public class Player : MonoBehaviour
 	public Transform m_propertyCard;
 	public int m_Index;
 
-	private int m_Life = 30;
+	private int m_Life = 20;
 
 	public UISlider progressBar;
-
+	public UILabel m_LifeText;
 
 	// Use this for initialization
 	void Start () 
 	{
+		SetLife(m_Life);
 	}
 	
 	// Update is called once per frame
@@ -81,13 +82,19 @@ public class Player : MonoBehaviour
 		PropertyCard property_card = m_propertyCard.GetComponent<PropertyCard>();
 		property_card.GetOneCard(this);
 	}
+
+	public int GetLife()
+	{
+		return m_Life;
+	}
 	
 	public void SetLife(int life)
 	{
 		m_Life = life;
+		m_LifeText.text = "Life:" + m_Life.ToString();
 		if (life <= 0)
 		{
-			GameManager.Instance.GameOver();
+			GameManager.Instance.GameOver(this);
 		}
 	}
 }
